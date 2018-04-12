@@ -3,6 +3,7 @@ package org.teamInventory.project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.teamInventory.project.model.Product;
 import org.teamInventory.project.service.productService;
@@ -16,11 +17,11 @@ public class productController {
 
 
     @RequestMapping("/")
-    public String listProducts(Model model){
+    public String listProducts(ModelMap model){
         List<Product> products = ps.getAll();
         model.addAttribute("products", products);
-        System.out.print("hehrehrhe"+products.get(0).getProductname());
-        return "home";
+        System.out.print(">>>>>>>>"+products.get(0).getProductname());
+        return "hello";
 
     }
 }
