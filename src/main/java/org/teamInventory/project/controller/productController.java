@@ -21,7 +21,7 @@ public class productController {
     public String listProducts(Model model){
         List<Product> products = ps.getAll();
         model.addAttribute("products", products);
-        return "templetes/home";
+        return "templetes/home.jsp";
 
     }
 }
