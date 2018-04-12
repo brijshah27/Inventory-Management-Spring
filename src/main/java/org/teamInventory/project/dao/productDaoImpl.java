@@ -16,6 +16,7 @@ public class productDaoImpl implements productDao {
 
     @Override
     public List<Product> getAll() {
+        System.out.print("inside dao");
         Session session = sessionFactory.openSession();
 
         // Create CriteriaBuilder
@@ -25,7 +26,7 @@ public class productDaoImpl implements productDao {
         CriteriaQuery<Product> criteria = builder.createQuery(Product.class);
 
         // Specify criteria root
-        criteria.from(productDao.class);
+        criteria.from(Product.class);
 
         // Execute query
         List<Product> products = session.createQuery(criteria).getResultList();
