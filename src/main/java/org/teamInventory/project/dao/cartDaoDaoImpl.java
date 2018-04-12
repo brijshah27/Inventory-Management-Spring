@@ -3,12 +3,13 @@ package org.teamInventory.project.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.teamInventory.project.model.Product;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
-
+@Repository
 public class cartDaoDaoImpl implements cartDao {
     @Autowired
     private SessionFactory sessionFactory;
