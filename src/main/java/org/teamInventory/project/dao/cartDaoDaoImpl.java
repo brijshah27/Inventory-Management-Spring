@@ -3,29 +3,30 @@ package org.teamInventory.project.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.teamInventory.project.model.Product;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public class cartDaoImpl implements cart {
+public class cartDaoDaoImpl implements cartDao {
     @Autowired
     private SessionFactory sessionFactory;
     @Override
-    public List<product> getAllItems() {
+    public List<Product> getAllItems() {
         Session session = sessionFactory.openSession();
 
         // Create CriteriaBuilder
         CriteriaBuilder builder = session.getCriteriaBuilder();
 
         // Create CriteriaQuery
-        CriteriaQuery<product> criteria = builder.createQuery(product.class);
+        CriteriaQuery<Product> criteria = builder.createQuery(Product.class);
 
         // Specify criteria root
-        criteria.from(cart.class);
+        criteria.from(cartDao.class);
 
         // Execute query
-        List<product> products = session.createQuery(criteria).getResultList();
+        List<Product> products = session.createQuery(criteria).getResultList();
 
         // Close session
         session.close();
@@ -34,7 +35,7 @@ public class cartDaoImpl implements cart {
     }
 
     @Override
-    public void deleteItem(product product) {
+    public void deleteItem(Product product) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(product);
@@ -43,7 +44,7 @@ public class cartDaoImpl implements cart {
     }
 
     @Override
-    public void addItemToCart(product product) {
+    public void addItemToCart(Product product) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(product);

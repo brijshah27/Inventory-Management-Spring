@@ -13,7 +13,7 @@ public class cart {
     private String username;
 
     @OneToMany
-    private List<product> products= new ArrayList<>();
+    private List<Product> products= new ArrayList<>();
 
     public cart() {}
 
@@ -33,11 +33,11 @@ public class cart {
         this.username = username;
     }
 
-    public List<product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 }

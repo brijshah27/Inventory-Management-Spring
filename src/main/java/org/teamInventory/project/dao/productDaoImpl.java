@@ -1,33 +1,33 @@
 package org.teamInventory.project.dao;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.teamInventory.project.model.Product;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public class productDaoImpl implements product {
+public class productDaoImpl implements productDao {
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public List<product> getAll() {
+    public List<Product> getAll() {
         Session session = sessionFactory.openSession();
 
         // Create CriteriaBuilder
         CriteriaBuilder builder = session.getCriteriaBuilder();
 
         // Create CriteriaQuery
-        CriteriaQuery<product> criteria = builder.createQuery(product.class);
+        CriteriaQuery<Product> criteria = builder.createQuery(Product.class);
 
         // Specify criteria root
-        criteria.from(product.class);
+        criteria.from(productDao.class);
 
         // Execute query
-        List<product> products = session.createQuery(criteria).getResultList();
+        List<Product> products = session.createQuery(criteria).getResultList();
 
         // Close session
         session.close();
@@ -36,15 +36,15 @@ public class productDaoImpl implements product {
     }
 
     @Override
-    public product getProductById(Long id) {
+    public Product getProductById(Long id) {
         Session session = sessionFactory.openSession();
-        product product = session.get(product.class,id);
+        Product product = session.get(Product.class,id);
         session.close();
         return product;
     }
 
     @Override
-    public void save(product product) {
+    public void save(Product product) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(product);
@@ -53,7 +53,7 @@ public class productDaoImpl implements product {
     }
 
     @Override
-    public void delete(product product) {
+    public void delete(Product product) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(product);
