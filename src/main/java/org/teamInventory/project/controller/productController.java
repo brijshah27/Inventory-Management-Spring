@@ -38,10 +38,17 @@ public class productController {
             }
             else {
                 System.out.println("name is:>>>>>>>> " + product.getProductName());
-                //ps.save(product);
+                ps.save(product);
                 return "redirect:";
             }
 
+    }
+    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    public String deleteProduct(@RequestParam Long id){
+
+        Product p = ps.getProductById(id);
+        ps.delete(p);
+        return "redirect:";
     }
 
 }

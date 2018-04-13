@@ -36,7 +36,6 @@
 <h1>${product.getProductName()}</h1>
 <h4>Qty: ${product.getProductQuantity()}</h4>
 <h4>Price: ${product.getProductPrice()}</h4>
-
-
+<a href="delete?id=${product.id}"}><button value="delete" name="delete"></button></a>
 </c:forEach>
 </html>
