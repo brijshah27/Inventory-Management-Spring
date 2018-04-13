@@ -46,9 +46,29 @@ public class productController {
     @RequestMapping(value = "delete", method = RequestMethod.GET)
     public String deleteProduct(@RequestParam Long id){
 
-        Product p = ps.getProductById(id);
-        ps.delete(p);
+        Product product = ps.getProductById(id);
+        ps.delete(product);
         return "redirect:";
     }
 
+    @RequestMapping(value="edit", method = RequestMethod.GET)
+    public String editProduct(@RequestParam Long id, ModelMap modelMap){
+        Product product = ps.getProductById(id);
+        modelMap.put("product", product);
+        return "edit";
+    }
+
+
+    @RequestMapping(value="/edit", method = RequestMethod.POST)
+    public String editProduct(@ModelAttribute("product") Product product,BindingResult result) {
+        if (result.hasErrors()){
+            return "edit";
+        }
+        else {
+            System.out.println("name is:>>>>>>>> " + product.getProductName());
+            ps.save(product);
+            return "redirect:";
+        }
+
+    }
 }
