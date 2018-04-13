@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <h3>Add Product Form</h3>
 
-<form:form modelAttribute="productAtt" action="/addProduct" method="POST">
+<form:form modelAttribute="productAtt">
             <table border="0">
                 <tr>
                     <td colspan="2" align="center"><h2>Add product form</h2></td>
@@ -29,12 +29,11 @@
                 </tr>
             </table>
         </form:form>
-
 <br/>
 <br/>
 <c:forEach items="${products}" var="product">
 
-<h1>${product.getProductname()}</h1>
+<h1>${product.getProductName()}</h1>
 <h4>Qty: ${product.getProductQuantity()}</h4>
 <h4>Price: ${product.getProductPrice()}</h4>
 

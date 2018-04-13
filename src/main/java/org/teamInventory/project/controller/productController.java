@@ -25,20 +25,21 @@ public class productController {
     public String listProducts(ModelMap model){
         List<Product> products = ps.getAll();
         model.addAttribute("products", products);
-        System.out.print(">>>>>>>>"+products.get(0).getProductname());
+        model.addAttribute("productAtt", new Product());
+        System.out.print(">>>>>>>>"+products.get(0).getProductName());
         return "home";
 
     }
 
-    @RequestMapping(value="/addProduct", method = RequestMethod.POST)
-    public String addProduct(@ModelAttribute("productAtt") Product product, BindingResult result) {
+    @RequestMapping(value="/", method = RequestMethod.POST)
+    public String addProduct(@ModelAttribute("productAtt") Product product,BindingResult result) {
             if (result.hasErrors()){
                 return "home";
             }
             else {
-                System.out.println("name is:>>>>>>>> " + product.getProductname());
-                ps.save(product);
-                return "home";
+                System.out.println("name is:>>>>>>>> " + product.getProductName());
+                //ps.save(product);
+                return "redirect:";
             }
 
     }
