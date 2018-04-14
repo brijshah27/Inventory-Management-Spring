@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.teamInventory.project.model.Product;
+import org.teamInventory.project.model.cart;
 import org.teamInventory.project.service.productService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@SessionAttributes("cart")
 public class productController {
     @Autowired
     private productService ps;
@@ -71,4 +73,27 @@ public class productController {
         }
 
     }
+
+    @RequestMapping("/user")
+    public String displayProductsUser(ModelMap model){
+        List<Product> products = ps.getAll();
+        model.addAttribute("products", products);
+        return "user";
+    }
+
+    @ModelAttribute("cart")
+    public cart addtoseesion(){
+        return new cart();
+    }
+
+    @RequestMapping("/addToCart")
+    public String setCart(@ModelAttribute("cart")cart cartAtt, @RequestParam Long id){
+        List<Product> cartList = cartAtt.getProducts();
+        Product p = ps.getProductById(id);
+        cartList.add(p);
+        cartAtt.setUsername("tempuser");
+        return "redirect:/cart";
+        //cartList.add()
+    }
+
 }
