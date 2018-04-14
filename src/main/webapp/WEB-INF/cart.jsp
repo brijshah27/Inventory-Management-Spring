@@ -7,7 +7,38 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <html xmlns="http://www.w3.org/1999/xhtml">
+<ul class="nav justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link active" href="/">Admin</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="user">User</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="cart">Cart</a>
+  </li>
+</ul>
+<table class="table table-hover" style="margin: 2em; max-width:700px">
+<thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+
+    <tbody>
 <c:forEach items="${cart.getProducts()}" var="product">
-<p>${product.getProductName()}</p>
+<tr>
+<td>${product.getProductName()}</td>
+<td>${product.getProductQuantity()}</td>
+<td>${product.getProductPrice()}</td>
+<td>
+<a href="deleteFromCart?id=${product.id}"}><button class="btn btn-primary" value="delete" name="delete">Delete</button></a>
+</td>
+</tr>
 </c:forEach>
+</tbody>
+</table>
 </html>
