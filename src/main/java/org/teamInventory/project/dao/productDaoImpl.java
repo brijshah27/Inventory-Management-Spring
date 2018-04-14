@@ -16,7 +16,6 @@ public class productDaoImpl implements productDao {
 
     @Override
     public List<Product> getAll() {
-        System.out.print("inside dao");
         Session session = sessionFactory.openSession();
 
         // Create CriteriaBuilder

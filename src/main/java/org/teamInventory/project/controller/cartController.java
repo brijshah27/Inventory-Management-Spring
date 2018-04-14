@@ -19,18 +19,29 @@ public class cartController {
 
     @RequestMapping("cart")
     public void displayCart(@SessionAttribute("cart")cart cartAtt, ModelMap model){
+        int cartTotal =0;
+        List<Product> pros = cartAtt.getProducts();
+        for (Product pro:pros) {
+            cartTotal+= pro.getProductQuantity()*pro.getProductPrice();
+        }
+        model.addAttribute("cartTotal",cartTotal);
         model.addAttribute("cart",cartAtt);
     }
 
     @RequestMapping("deleteFromCart")
     public String deleteFromCart(@SessionAttribute("cart")cart cartAtt, @RequestParam Long id,ModelMap model){
-        for (Product item:cartAtt.getProducts()
-             ) {
-            if(item.getId()==id){
-                cartAtt.getProducts().remove(item);
+        for(int i=0;i<cartAtt.getProducts().size();i++){
+            if(cartAtt.getProducts().get(i).getId()==id){
+                cartAtt.getProducts().remove(cartAtt.getProducts().get(i));
             }
         }
-        return "cart";
+        int cartTotal=0;
+        List<Product> pros = cartAtt.getProducts();
+        for (Product pro:pros) {
+            cartTotal+= pro.getProductQuantity()*pro.getProductPrice();
+        }
+        model.addAttribute("cartTotal",cartTotal);
+        return "redirect:cart";
     }
 
 }

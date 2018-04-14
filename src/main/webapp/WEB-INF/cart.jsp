@@ -18,6 +18,7 @@
     <a class="nav-link" href="cart">Cart</a>
   </li>
 </ul>
+
 <table class="table table-hover" style="margin: 2em; max-width:700px">
 <thead>
     <tr>
@@ -41,4 +42,9 @@
 </c:forEach>
 </tbody>
 </table>
+<div style="min-width:50%;max-width:60%;margin-left:2em">
+<div class="alert alert-dark" role="alert">
+  Cart total: <b>$${cartTotal}</b>
+</div>
+</div>
 </html>
