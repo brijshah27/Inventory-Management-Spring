@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.teamInventory.project.model.Cart;
 import org.teamInventory.project.model.Product;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -49,6 +50,24 @@ public class cartDaoDaoImpl implements cartDao {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(product);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void addAllItemsToCart(List<Product> allProducts) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(allProducts);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void saveToCart(Cart cart){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(cart);
         session.getTransaction().commit();
         session.close();
     }

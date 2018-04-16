@@ -7,8 +7,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.teamInventory.project.model.Cart;
 import org.teamInventory.project.model.Product;
-import org.teamInventory.project.model.cart;
 import org.teamInventory.project.service.productService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,12 +81,12 @@ public class productController {
     }
 
     @ModelAttribute("cart")
-    public cart addtoseesion(){
-        return new cart();
+    public Cart addtoseesion(){
+        return new Cart();
     }
 
     @RequestMapping("/addToCart")
-    public String setCart(@ModelAttribute("cart")cart cartAtt, @RequestParam Long id){
+    public String setCart(@ModelAttribute("cart")Cart cartAtt, @RequestParam Long id){
         List<Product> cartList = cartAtt.getProducts();
         Product p = ps.getProductById(id);
        for(int i=0; i<cartList.size();i++){

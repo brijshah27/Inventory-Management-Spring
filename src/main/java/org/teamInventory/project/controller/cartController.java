@@ -3,12 +3,10 @@ package org.teamInventory.project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.teamInventory.project.model.Cart;
 import org.teamInventory.project.model.Product;
-import org.teamInventory.project.model.cart;
+import org.teamInventory.project.service.cartService;
 import org.teamInventory.project.service.productService;
 
 import java.util.Arrays;
@@ -17,8 +15,14 @@ import java.util.List;
 @Controller
 public class cartController {
 
+    @Autowired
+    private productService ps;
+
+    @Autowired
+    private cartService cs;
+
     @RequestMapping("cart")
-    public void displayCart(@SessionAttribute("cart")cart cartAtt, ModelMap model){
+    public void displayCart(@SessionAttribute("cart")Cart cartAtt, ModelMap model){
         int cartTotal =0;
         List<Product> pros = cartAtt.getProducts();
         for (Product pro:pros) {
@@ -29,7 +33,7 @@ public class cartController {
     }
 
     @RequestMapping("deleteFromCart")
-    public String deleteFromCart(@SessionAttribute("cart")cart cartAtt, @RequestParam Long id,ModelMap model){
+    public String deleteFromCart(@SessionAttribute("cart")Cart cartAtt, @RequestParam Long id,ModelMap model){
         for(int i=0;i<cartAtt.getProducts().size();i++){
             if(cartAtt.getProducts().get(i).getId()==id){
                 cartAtt.getProducts().remove(cartAtt.getProducts().get(i));
@@ -42,6 +46,33 @@ public class cartController {
         }
         model.addAttribute("cartTotal",cartTotal);
         return "redirect:cart";
+    }
+
+    @RequestMapping("login")
+    public String completeTransaction(@SessionAttribute("cart") Cart cartAtt, ModelMap modelMap){
+        return "login";
+    }
+
+    @RequestMapping(value = "checkUser", method = RequestMethod.GET)
+    public String checkUser(@SessionAttribute("cart") Cart cartAtt, @RequestParam String username, ModelMap modelMap){
+        List<Product> cartProducts = cartAtt.getProducts();
+//        System.out.println("~~~~~~~ ALL PRODUCTS IN YOUR CART:"+cartProducts.get(0).getProductQuantity()+cartProducts.get(1).getProductQuantity());
+        for (int i =0; i<cartProducts.size();i++){
+            Product productFromDB = ps.getProductById(cartProducts.get(i).getId());
+            Product currentProduct = cartProducts.get(i);
+            productFromDB.setProductQuantity(productFromDB.getProductQuantity() - currentProduct.getProductQuantity());
+            ps.save(productFromDB);
+        }
+
+        Cart cart = new Cart();
+        cart.setUsername(username);
+        cart.setProducts(cartProducts);
+
+
+        cs.saveToCart(cart);
+//        cs.addAllItemsToCart(cartProducts);
+        cartProducts.clear();
+        return "redirect:";
     }
 
 }

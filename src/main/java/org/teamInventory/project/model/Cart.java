@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class cart {
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,7 +15,7 @@ public class cart {
     @OneToMany
     private List<Product> products= new ArrayList<>();
 
-    public cart() {}
+    public Cart() {}
 
     public Long getId() {
         return id;

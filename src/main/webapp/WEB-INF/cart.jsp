@@ -47,4 +47,5 @@
   Cart total: <b>$${cartTotal}</b>
 </div>
 </div>
+<a href="login"}><button class="btn btn-primary" value="login" name="login">Complete Transaction</button></a>
 </html>
